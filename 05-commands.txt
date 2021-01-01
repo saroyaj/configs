@@ -1,0 +1,8 @@
+sudo systemctl stop kibana
+sudo systemctl stop elasticsearch
+sudo vim /etc/elasticsearch/elasticsearch.yml
+sudo systemctl start elasticsearch
+sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive
+sudo vim /etc/kibana/kibana.yml
+sudo systemctl restart elasticsearch
+sudo systemctl restart kibana
