@@ -1,0 +1,58 @@
+apt-get update
+apt-get upgrade -y
+sudo apt-mark hold linux-image-generic linux-headers-generic
+apt-get install cmake make gcc g++ flex bison libpcap-dev libssl-dev python-dev swig zlib1g-dev libgeoip-dev build-essential libelf-dev -y
+cd /opt
+git clone https://github.com/ntop/PF_RING.git
+cd PF_RING/kernel/
+make
+insmod ./pf_ring.ko
+cd ../userland
+make
+cd lib
+./configure --prefix=/opt/PF_RING
+make install
+cd ../libpcap
+./configure --prefix=/opt/PF_RING/
+make install
+cd ../tcpdump-*
+./configure --prefix=/opt/PF_RING/
+make install
+cd ../../kernel
+make
+make install
+echo "pf_ring" >> /etc/modules
+reboot
+
+apt-get install cmake make gcc g++ flex bison libpcap-dev libssl-dev python-dev swig zlib1g-dev git -y
+cd /tmp/
+git clone --recursive https://github.com/zeek/zeek
+cd zeek
+./configure --with-pcap=/opt/PF_RING --prefix=/opt/bro/
+make
+make install
+echo "$PATH:/opt/bro/bin" >/etc/environment
+export PATH=/opt/bro/bin:$PATH
+cat > /opt/bro/etc/node.cfg << 'EOF'
+[manager]
+type=manager
+host=localhost
+#
+[proxy-1]
+type=proxy
+host=localhost
+#
+[worker-1]
+type=worker
+host=localhost
+interface=eth1
+lb_method=pf_ring
+lb_procs=5
+EOF
+
+vim /opt/bro/etc/network.cfg
+/opt/bro/bin/zeekctl install
+/opt/bro/bin/zeekctl deploy
+/opt/bro/bin/zeekctl status
+tail -f /opt/bro/logs/current/conn.log
+clear
