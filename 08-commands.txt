@@ -1,0 +1,19 @@
+sudo apt-get install filebeat
+systemctl enable filebeat
+vim /etc/filebeat/filebeat.yml
+echo > /etc/filebeat/filebeat.yml
+vim /etc/filebeat/filebeat.yml
+filebeat modules list | grep zeek
+filebeat modules enable zeek
+vim /etc/filebeat/modules.d/zeek.yml
+systemctl restart filebeat
+systemctl status filebeat
+tail -f /opt/bro/logs/current/conn.log
+find / -name local.zeek
+vim /opt/bro/share/zeek/site/local.zeek
+/opt/bro/bin/zeekctl deploy
+tail -f /opt/bro/logs/current/conn.log
+filebeat setup -e
+systemctl filebeat restart
+systemctl restart filebeat
+systemctl status filebeat
