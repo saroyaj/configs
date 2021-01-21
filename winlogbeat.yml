@@ -1,0 +1,49 @@
+#-------------------------- Windows Logs To Collect -----------------------------
+winlogbeat.event_logs:
+  - name: Application
+    ignore_older: 30m
+  - name: Security
+    ignore_older: 30m
+  - name: System
+    ignore_older: 30m
+  - name: Microsoft-windows-sysmon/operational
+    ignore_older: 30m
+  - name: Microsoft-windows-PowerShell/Operational
+    ignore_older: 30m
+    event_id: 4103, 4104
+  - name: Windows PowerShell
+    event_id: 400,600
+    ignore_older: 30m
+  - name: Microsoft-Windows-WMI-Activity/Operational
+    event_id: 5857,5858,5859,5860,5861
+
+# ====================== Elasticsearch template settings =======================
+
+setup.template.settings:
+  index.number_of_shards: 1
+  #index.codec: best_compression
+  #_source.enabled: false
+
+# =================================== Kibana ===================================
+
+setup.kibana:
+  host: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX" 
+  username: "elastic"  
+  password: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+# ---------------------------- Elasticsearch Output ----------------------------
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"]
+  username: "elastic"
+  password: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"  
+
+# ================================= Processors =================================
+processors:
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+  - add_cloud_metadata: ~
+
+
+cloud.id: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+cloud.auth: "elastic:XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
