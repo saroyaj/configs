@@ -1,0 +1,6 @@
+Hello Class, 
+
+This file is downloaded from github and then printed on the screen. 
+You can decode the encoded command and find that out yourself. 
+
+Jasmeet 
