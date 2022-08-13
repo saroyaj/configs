@@ -17,4 +17,5 @@ discovery.type: single-node
 """
 sudo service elasticsearch start
 sudo service elasticsearch status
+systemctl enable elasticsearch
 curl http://localhost:9200
