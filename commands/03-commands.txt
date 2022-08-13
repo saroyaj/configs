@@ -6,7 +6,15 @@ sudo apt-get install apt-transport-https
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 sudo apt-get update
 sudo apt-get install elasticsearch
+echo > /etc/elasticsearch/elasticsearch.yml
 sudo vim /etc/elasticsearch/elasticsearch.yml
+"""
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+network.host: 0.0.0.0
+http.port: 9200
+discovery.type: single-node
+"""
 sudo service elasticsearch start
 sudo service elasticsearch status
 curl http://localhost:9200
