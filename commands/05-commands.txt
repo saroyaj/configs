@@ -1,8 +1,19 @@
 sudo systemctl stop kibana
+
 sudo systemctl stop elasticsearch
+
 sudo vim /etc/elasticsearch/elasticsearch.yml
+
+echo "xpack.security.enabled: true" >> /etc/elasticsearch/elasticsearch.yml
+
 sudo systemctl start elasticsearch
+
 sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive
-sudo vim /etc/kibana/kibana.yml
+Changed all passwors to -> Password123
+
+echo 'elasticsearch.username: "kibana_system"' >> /etc/kibana/kibana.yml
+echo 'elasticsearch.password: "Password123"' >> /etc/kibana/kibana.yml
+
 sudo systemctl restart elasticsearch
+
 sudo systemctl restart kibana
